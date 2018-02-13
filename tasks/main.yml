@@ -1,0 +1,40 @@
+---
+# tasks file for roles/install-docker
+
+# tasks file for roles/install-docker
+
+# - name: do an apt update 
+#   apt:
+#     update_cache: yes
+
+# - name: install linux-image-extra
+#   shell: apt-get install -y linux-image-extra-$(uname -r)
+
+# - name: install linux-image-extra-virtual
+#   apt:
+#     name: linux-image-extra-virtual
+#     state: latest
+
+# - name: do an apt update 
+#   apt:
+#     update_cache: yes
+
+# - name: add a link back to /vagrant/docker
+#   file:
+#     src: '/data/docker'
+#     dest: '/var/lib/docker'
+#     owner: edg
+#     group: edg
+#     state: link
+#     force: yes
+
+- name: copy 
+  copy: src="{{docker_version}}" dest=/usr/local/src  owner=root
+
+- name: install docker
+  yum:
+    name: "/usr/local/src/{{docker_version}}"
+    state: present
+
+- name: add the edg user to the docker group
+  shell: usermod -a -G docker edg

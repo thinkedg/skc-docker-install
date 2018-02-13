@@ -1,0 +1,6 @@
+
+*~
+*.rpm
+*.deb
+*.log
+*.retry
